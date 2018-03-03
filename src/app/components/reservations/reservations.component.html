@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="three">
+    <h2>Mes réservations</h2><br>
+    <button mat-raised-button color="primary" (click)="showRes()">Show réservations</button>
+  </div>
+</div>
+<div class="container">
+  <div>
+    <div class="example-container mat-elevation-z8">
+      <mat-table #table [dataSource]="journeysSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="departureDateTime">
+          <mat-header-cell *matHeaderCellDef> Departure </mat-header-cell>
+          <mat-cell *matCellDef="let e"><mat-icon>timer</mat-icon>{{  ( '0' + e.departureDateTime.getDay()).slice(-2) + '/' +  ('0' + e.departureDateTime.getMonth()).slice(-2) + ' ' + e.departureDateTime.getHours() + 'h' + ( '0' + e.departureDateTime.getMinutes()).slice(-2) }}</mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="arrivalDateTime">
+          <mat-header-cell *matHeaderCellDef> Arrival </mat-header-cell>
+          <mat-cell *matCellDef="let e"><mat-icon>timer</mat-icon> {{ ('0' + e.arrivalDateTime.getDay()).slice(-2) + '/' +  ('0' + e.arrivalDateTime.getMonth()).slice(-2) + ' ' + e.arrivalDateTime.getHours() + 'h' +  ('0' + e.arrivalDateTime.getMinutes()).slice(-2) }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="duration">
+          <mat-header-cell *matHeaderCellDef> Duration </mat-header-cell>
+          <mat-cell *matCellDef="let e">
+            <span>{{e.journeyTime}}</span>
+            <mat-icon>timer</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+          <mat-cell *matCellDef="let e"> {{e.price}} {{e.currency}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="distance">
+          <mat-header-cell *matHeaderCellDef> Distance </mat-header-cell>
+          <mat-cell *matCellDef="let e"> {{e.distance}} km </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="steps">
+          <mat-header-cell *matHeaderCellDef> Steps </mat-header-cell>
+          <mat-cell *matCellDef="let e">
+              <span *ngFor="let section of e.sections; let i = index">
+                <mat-icon title="{{section.commercial_mode}}">{{section.iconName}}</mat-icon>
+                <span *ngIf="i!=e.sections.length-1">></span>
+              </span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let e">
+            <button mat-raised-button color="primary" (click)="viewjourneyDetails(e)">View Details</button>
+            <button mat-raised-button color="primary" (click)="deleteJourney(e)">Delete Journey</button>
+          </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumnsJourneys"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsJourneys;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

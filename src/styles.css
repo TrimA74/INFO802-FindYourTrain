@@ -1,1 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+div.container
+{
+  display: flex;
+  margin-bottom: 10px;
+}
+div.container > div.two
+{
+  flex:2 2 calc(10em + 10px); /** 10px is the missing margin of the missing box */
+}
+
+div.container > div.three
+{
+  flex:3 3 calc(15em + 20px); /** 20px is the missing margin of the two missing boxes */
+}
+
+div.container > div:first-child
+{
+  margin-left: 0;
+}
+
+div.container > div
+{
+  flex: 1 1 5em;
+  margin-left: 10px;
+}
+
+
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container > * {
+  width: 100%;
+}
+.fill-remaining-space {
+  /*This fills the remaining space, by using flexbox.
+ Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+md-icon{
+  font-family: 'Material Icons' !important;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+  width: 100%;
+}

@@ -1,0 +1,8 @@
+{
+  "/dqsdqdqsdsqdsqd": {
+    "target": "http://currencyconverter.kowabunga.net/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

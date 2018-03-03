@@ -1,0 +1,14 @@
+<mat-vertical-stepper #stepper="matVerticalStepper">
+  <mat-step *ngFor="let section of journey.sections">
+    <ng-template matStepLabel ><mat-icon title="{{section.commercial_mode}}">{{section.iconName}}</mat-icon></ng-template>
+    <ng-container *ngIf="section.type!=='waiting'">
+
+      <p>From : {{section.from.name}}</p>
+      <p>To : {{section.to.name}}</p>
+      <p>Duration : {{section.journeyTime}} <mat-icon>timer</mat-icon></p>
+      <p>Departure : <mat-icon>timer</mat-icon>{{ ( '0' + section.departureDateTime.getDay()).slice(-2) + '/' +  ('0' + section.departureDateTime.getMonth()).slice(-2) + ' ' + section.departureDateTime.getHours() + 'h' + ( '0' + section.departureDateTime.getMinutes()).slice(-2) }}</p>
+      <p>Arrival : <mat-icon>timer</mat-icon>{{ ( '0' + section.arrivalDateTime.getDay()).slice(-2) + '/' +  ('0' + section.arrivalDateTime.getMonth()).slice(-2) + ' ' + section.arrivalDateTime.getHours() + 'h' + ( '0' + section.arrivalDateTime.getMinutes()).slice(-2) }}</p>
+
+    </ng-container>
+    </mat-step>
+</mat-vertical-stepper>

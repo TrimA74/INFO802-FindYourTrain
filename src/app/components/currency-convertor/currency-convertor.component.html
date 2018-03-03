@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-title>
+    Currency Convertor
+  </mat-card-title>
+  <mat-card-content>
+    <div class="form-container">
+      <mat-form-field>
+        <mat-select placeholder="Currency from" [(ngModel)]="currencyFrom">
+          <mat-option *ngFor="let currency of currencies" [value]="currency" >
+            {{ currency }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Currency to" [(ngModel)]="currencyTo">
+          <mat-option *ngFor="let currency of currencies" [value]="currency" >
+            {{ currency }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Amount"  [(ngModel)]="amount">
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="getAmount()">Convert</button>
+  </mat-card-actions>
+</mat-card>
