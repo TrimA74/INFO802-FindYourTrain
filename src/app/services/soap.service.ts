@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 declare var require: any;
 const XML = require('pixl-xml');
 import {HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -6,13 +6,61 @@ import {Observable} from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import 'rxjs/add/observable/fromPromise';
 
+import { SOAPService, Client } from 'ngx-soap';
+
 @Injectable()
-export class SoapService {
+export class SoapService{
 
   //private ccUrl = 'https://c62a3b01.ngrok.io/TD1_war_exploded/services/Distance';
   private ccUrl = 'http://localhost:8080/TD1_war_exploded/services/Distance';
+  private wsdl = 'http://localhost:8080/TD1_war_exploded/services/Distance?wsdl';
+  private client: Client;
 
-  constructor() { }
+  constructor(    private http: HttpClient,
+                  private soap: SOAPService) {
+    this.http.get(this.wsdl , { responseType: 'text' }).subscribe((response: any) => {
+      console.log(response);
+      if (response) {
+        this.soap.createClient(response, {}).then((client: Client) => {
+          this.client = client;
+          let body = {
+            LatitudeA: 40.851114,
+            LongitudeA: 1.620282,
+            LatitudeB: 47.130349,
+            LongitudeB: 4.208899
+          };
+          client.operation('Distance', body).then(operation => {
+            if (operation.error) {
+              console.log('Operation error', operation.error);
+              return;
+            }
+            // 4. call the web service operation
+            console.log(operation.url);
+            /*
+            let url = operation.url.replace("http://www.dneonline.com", "/calculator");
+            this.http.post(url, operation.xml, { headers: operation.headers }).subscribe(
+              response => {
+                this.xmlResponse = response.text();
+
+                // 5. parse xml response into json
+                this.jsonResponse = client.parseResponseBody(response.text());
+                try {
+                  this.message = this.jsonResponse.Body.AddResponse.AddResult;
+                } catch (error) { }
+                this.loading = false;
+              },
+              err => {
+                console.log("Error calling ws", err);
+                this.loading = false;
+              }
+            );
+            */
+          })
+            .catch(err => console.log('Error', err));
+        });
+      }
+    });
+  }
 
   private envelopeBuilder(currencyFrom: string, currencyTo: string, amount: number ): string {
     return '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">' +

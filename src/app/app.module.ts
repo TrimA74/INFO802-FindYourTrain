@@ -43,7 +43,9 @@ import { JourneyDetailsComponent } from './components/journey-details/journey-de
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore } from 'angularfire2/firestore';
-import {environment} from "../environments/environment";
+import {environment} from '../environments/environment';
+
+import { NgxSoapModule } from 'ngx-soap';
 const appRoutes: Routes = [
   { path: 'currency-convertor', component: CurrencyConvertorComponent },
 ];
@@ -90,6 +92,7 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatStepperModule,
     MatSnackBarModule,
+    NgxSoapModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   bootstrap: [AppComponent],

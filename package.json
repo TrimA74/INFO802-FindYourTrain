@@ -29,6 +29,7 @@
     "autopulous-angular2-soap": "0.4.7",
     "core-js": "^2.4.1",
     "firebase": "^4.9.1",
+    "ngx-soap": "^0.2.2-beta4",
     "pixl-xml": "^1.0.13",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
